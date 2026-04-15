@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Doador(models.Model):
     TIPO_SANGUINEO_CHOICES = [
         ('A+', 'A+'), ('A-', 'A-'),
