@@ -55,7 +55,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "doacao_sangue.urls"
+ROOT_URLCONF = "api_paciente.urls"
 
 TEMPLATES = [
     {
@@ -91,7 +91,7 @@ REST_FRAMEWORK = {
 'rest_framework.permissions.IsAuthenticated',
     ],
 }
-WSGI_APPLICATION = "doacao_sangue.wsgi.application"
+WSGI_APPLICATION = "api_pacientes.wsgi.application"
 
 
 # Database
