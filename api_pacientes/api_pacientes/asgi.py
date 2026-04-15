@@ -1,5 +1,5 @@
 """
-ASGI config for doacao_sangue project.
+ASGI config for api_pacientes project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "doacao_sangue.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "api_pacientes.settings")
 
 application = get_asgi_application()
