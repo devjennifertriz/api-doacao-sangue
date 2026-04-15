@@ -40,9 +40,7 @@ INSTALLED_APPS = [
     'rest_framework', # Django REST Framework
     'rest_framework_simplejwt', #usar JWT e Swagger depois, já pode incluir
     'drf_yasg',
-    'api_pacientes',
-    'api_doadores',
-    'api_gateway'
+    'gestao_pacientes',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +53,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "api_paciente.urls"
+ROOT_URLCONF = "api_pacientes.urls"
 
 TEMPLATES = [
     {
