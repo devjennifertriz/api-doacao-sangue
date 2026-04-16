@@ -4,5 +4,8 @@ from .views import *
 urlpatterns = [
     path('', PacienteListCreate.as_view()),
     path('<int:pk>/', PacienteDetail.as_view()),
+
+    path('', SolicitacaoDoacaoListCreate.as_view()),
+    path('<int:pk>/', SolicitacaoDoacaoDetail.as_view()),
 ]
 
