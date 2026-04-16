@@ -63,7 +63,7 @@ class LocalDoacao(models.Model):
         verbose_name_plural = "Locais de Doação"
     
     def __str__(self):
-        return f'{self.nome} - {self.cidade} - {endereco}'
+        return f'{self.nome} - {self.cidade} - {self.endereco}'
     
 
 class DemonstracaoInteresse(models.Model):
@@ -73,7 +73,7 @@ class DemonstracaoInteresse(models.Model):
         related_name="interesses"
     )
     
-    paciente_id = models.IntegerField(verbose_name="ID do Paciente Externo")
+    solicitacao_id = models.IntegerField(verbose_name="ID da Solicitação Externa")
     
     data_registro = models.DateTimeField(auto_now_add=True)
     
