@@ -40,9 +40,7 @@ INSTALLED_APPS = [
     'rest_framework', # Django REST Framework
     'rest_framework_simplejwt', #usar JWT e Swagger depois, já pode incluir
     'drf_yasg',
-    'api_pacientes',
-    'api_doadores',
-    'api_gateway'
+    'gateway'
 ]
 
 MIDDLEWARE = [
