@@ -1,15 +1,20 @@
 from django.db import models
 
 class Paciente(models.Model):
+    user_id = models.IntegerField(unique=True, help_text="ID do usuário no Gateway")
+
     TIPO_SANGUINEO_CHOICES = [
         ('A+', 'A+'), ('A-', 'A-'),
         ('B+', 'B+'), ('B-', 'B-'),
         ('AB+', 'AB+'), ('AB-', 'AB-'),
         ('O+', 'O+'), ('O-', 'O-'),
     ]
-
+    
     nome = models.CharField(max_length=100)
     telefone = models.CharField(max_length=20, blank=True, null=True)
+    
+    foto_perfil = models.ImageField(upload_to='perfil_pacientes/', null=True, blank=True)
+    
     tipo_sanguineo = models.CharField(
         max_length=3,
         choices=TIPO_SANGUINEO_CHOICES

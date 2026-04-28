@@ -1,6 +1,8 @@
 from django.db import models
 
 class Doador(models.Model):
+    user_id = models.IntegerField(unique=True, help_text="ID do usuário no Gateway")
+    
     TIPO_SANGUINEO_CHOICES = [
         ('A+', 'A+'), ('A-', 'A-'),
         ('B+', 'B+'), ('B-', 'B-'),
@@ -12,6 +14,9 @@ class Doador(models.Model):
     email = models.EmailField(max_length=150, unique=True)
     data_nascimento = models.DateField()
     telefone = models.CharField(max_length=20, blank=True, null=True)
+    
+    foto_perfil = models.ImageField(upload_to='perfil_doadores/', null=True, blank=True)
+    
     tipo_sanguineo = models.CharField(
         max_length=3, 
         choices=TIPO_SANGUINEO_CHOICES,

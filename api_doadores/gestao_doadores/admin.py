@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Doador, CriterioDoacao, LocalDoacao, DemonstracaoInteresse
 
-# Register your models here.
+
+admin.site.register(Doador)
+admin.site.register(CriterioDoacao)
+admin.site.register(LocalDoacao)
+admin.site.register(DemonstracaoInteresse)
