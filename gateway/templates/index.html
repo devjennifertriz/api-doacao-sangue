@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gateway - Doação de Sangue</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        h1 { color: #d32f2f; border-bottom: 2px solid #d32f2f; }
+        .card { border: 1px solid #ddd; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+        .btn { background: #d32f2f; color: white; padding: 8px 15px; text-decoration: none; border-radius: 4px; display: inline-block; }
+        .links { font-size: 0.8em; color: #666; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Solicitações de Doação Úrgentes</h1>
+        {% for s in solicitacoes %}
+        <div class="card">
+            <h3>Paciente: {{ s.paciente_detalhes.nome}}</h3>
+            <p>Tipo Sanguíneo Necessário: <strong>{{ s.tipo_sanguineo_necessario }}</strong></p>
+            <p>Hospital: {{ s.hospital }}</p>
+            
+            <!-- Link HATEOAS gerado no main.py -->
+            <a href="{{ s._links.detalhes }}" class="btn">Ajudar nesta solicitação</a>
+            
+            <div class="links">
+                <small>API Origem: {{ s._links.api_origem }}</small>
+            </div>
+        </div>
+        {% else %}
+        <p>Nenhuma solicitação encontrada na API de Pacientes.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

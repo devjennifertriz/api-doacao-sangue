@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrar Doação</title>
+    <style>
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .form-container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 8px; }
+        .info-box { background: #fff3f3; padding: 10px; border-left: 5px solid #d32f2f; margin-bottom: 20px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        select, input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-save { background: #2e7d32; color: white; border: none; width: 100%; padding: 12px; cursor: pointer; font-size: 16px; }
+        .btn-save:hover { background: #1b5e20; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Finalizar Doação</h2>
+        
+        <div class="info-box">
+            <strong>Demanda Selecionada:</strong><br>
+            Paciente: {{ demanda.paciente_nome }} ({{ demanda.tipo_sanguineo }})
+        </div>
+
+        <form action="/registrar-comprovante" method="POST" enctype="multipart/form-data">
+            <!-- ID da solicitação oculto para o backend -->
+            <input type="hidden" name="solicitacao_id" value="{{ demanda.id }}">
+
+            <label>Selecione o Doador (API Doadores):</label>
+            <select name="doador_id" required>
+                <option value="">-- Selecione um doador --</option>
+                {% for d in doadores %}
+                <option value="{{ d.id }}">{{ d.nome }} - {{ d.tipo_sanguineo }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Upload do Comprovante (PDF/Imagem):</label>
+            <input type="file" name="comprovante" required>
+
+            <button type="submit" class="btn-save">Confirmar e Salvar Registro</button>
+        </form>
+        <br>
+        <a href="/">Voltar para a lista</a>
+    </div>
+</body>
+</html>

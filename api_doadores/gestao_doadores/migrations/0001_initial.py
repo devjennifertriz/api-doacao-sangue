@@ -124,7 +124,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name="DemonstracaoInteresse",
+            name="RegistrarDoacao",
             fields=[
                 (
                     "id",

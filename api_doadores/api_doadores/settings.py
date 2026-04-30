@@ -26,8 +26,7 @@ SECRET_KEY = "django-insecure-w)5gks$f7ka&ez_5*%jxd^l@7n&_!ld!zdzytpi+pnsi&lq@s!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -38,10 +37,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'gestao_doadores'
+    "rest_framework",
+    "drf_yasg",
+    "gestao_doadores",
+    "rest_framework_simplejwt",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -50,7 +55,11 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
+CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.app.github.dev",
+    "http://localhost:8000",
+]
 ROOT_URLCONF = "api_doadores.urls"
 
 TEMPLATES = [
@@ -70,23 +79,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "api_doadores.wsgi.application"
 SWAGGER_SETTINGS = {
-'SECURITY_DEFINITIONS': {
-'Bearer': {
-'type': 'apiKey',
-'name': 'Authorization',
-'in': 'header',
-'description': 'JWT Authorization. Use o formato: Bearer <seu_token>'
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Authorization. Use o formato: Bearer <seu_token>",
         }
-    }
+    },
+    "USE_SESSION_AUTH": False, 
+    "SECURITY_REQUIREMENTS": [{"Bearer": []}],
 }
 
 REST_FRAMEWORK = {
-'DEFAULT_AUTHENTICATION_CLASSES': [
-'rest_framework_simplejwt.authentication.JWTAuthentication',
-# or 'rest_framework.authentication.TokenAuthentication',
-],
-'DEFAULT_PERMISSION_CLASSES': [
-'rest_framework.permissions.IsAuthenticated',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
     ],
 }
 
@@ -137,10 +147,16 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-if 'CODESPACE_NAME' in os.environ:
+if "CODESPACE_NAME" in os.environ:
     codespace_name = os.getenv("CODESPACE_NAME")
     codespace_domain = os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
-    CSRF_TRUSTED_ORIGINS = [f'https://{codespace_name}-8000.{codespace_domain}','https://localhost:8000']
+    CSRF_TRUSTED_ORIGINS = [
+        f"https://{codespace_name}-8000.{codespace_domain}",
+        "https://localhost:8000",
+    ]
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

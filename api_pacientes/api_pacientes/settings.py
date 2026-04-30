@@ -26,8 +26,8 @@ SECRET_KEY = "django-insecure-!v68sz&%dt!vhhjd-gkezx0@+m2)98tw14t1bp%&jf3$k$thdf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ["*"]
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
 
@@ -38,13 +38,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'rest_framework', # Django REST Framework
-    'rest_framework_simplejwt', #usar JWT e Swagger depois, já pode incluir
-    'drf_yasg',
-    'gestao_pacientes',
+    "rest_framework",  # Django REST Framework
+    "rest_framework_simplejwt",  # usar JWT e Swagger depois, já pode incluir
+    "drf_yasg",
+    "gestao_pacientes",
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware', 
+    'django.middleware.common.CommonMiddleware',
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -71,23 +74,25 @@ TEMPLATES = [
     },
 ]
 SWAGGER_SETTINGS = {
-'SECURITY_DEFINITIONS': {
-'Bearer': {
-'type': 'apiKey',
-'name': 'Authorization',
-'in': 'header',
-'description': 'JWT Authorization. Use o formato: Bearer <seu_token>'
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+            "description": "JWT Authorization. Use o formato: Bearer <seu_token>",
         }
-    }
+    },
+    "USE_SESSION_AUTH": False, 
+    "SECURITY_REQUIREMENTS": [{"Bearer": []}],
 }
 
+
 REST_FRAMEWORK = {
-'DEFAULT_AUTHENTICATION_CLASSES': [
-'rest_framework_simplejwt.authentication.JWTAuthentication',
-# or 'rest_framework.authentication.TokenAuthentication',
-],
-'DEFAULT_PERMISSION_CLASSES': [
-'rest_framework.permissions.IsAuthenticated',
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
     ],
 }
 WSGI_APPLICATION = "api_pacientes.wsgi.application"
@@ -140,5 +145,16 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+if "CODESPACE_NAME" in os.environ:
+    codespace_name = os.getenv("CODESPACE_NAME")
+    codespace_domain = os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")
+    CSRF_TRUSTED_ORIGINS = [
+        f"https://{codespace_name}-8001.{codespace_domain}",
+        "https://localhost:8001",
+    ]
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
