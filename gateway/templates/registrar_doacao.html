@@ -19,12 +19,14 @@
         
         <div class="info-box">
             <strong>Demanda Selecionada:</strong><br>
-            Paciente: {{ demanda.paciente_nome }} ({{ demanda.tipo_sanguineo }})
+            Paciente: {{ solicitacao.paciente_detalhes.nome }} <br>
+            Tipo Sanguíneo: {{ solicitacao.tipo_sanguineo_necessario }}<br>
+            Hospital: {{ solicitacao.hospital }}
         </div>
 
         <form action="/registrar-comprovante" method="POST" enctype="multipart/form-data">
             <!-- ID da solicitação oculto para o backend -->
-            <input type="hidden" name="solicitacao_id" value="{{ demanda.id }}">
+            <input type="hidden" name="solicitacao_id" value="{{ solicitacao.id }}">
 
             <label>Selecione o Doador (API Doadores):</label>
             <select name="doador_id" required>
@@ -33,7 +35,7 @@
                 <option value="{{ d.id }}">{{ d.nome }} - {{ d.tipo_sanguineo }}</option>
                 {% endfor %}
             </select>
-
+            
             <label>Upload do Comprovante (PDF/Imagem):</label>
             <input type="file" name="comprovante" required>
 

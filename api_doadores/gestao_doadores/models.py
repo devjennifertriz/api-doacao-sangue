@@ -77,6 +77,7 @@ class RegistrarDoacao(models.Model):
     class Meta:
         verbose_name = "Registro de Doação"
         verbose_name_plural = "Registros de Doação"
+        db_table = 'gestao_doadores_registrardoacao'
 
     def __str__(self):
         return f"Registro: {self.doador.nome} -> Solicitação #{self.solicitacao_id}"
