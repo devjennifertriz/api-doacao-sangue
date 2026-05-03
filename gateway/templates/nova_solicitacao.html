@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Solicitação - Gateway</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='nova_solicitacao.css') }}">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>🩸 Nova Solicitação</h2>
+    {% for c in criteros %}
+            <option value="{{ c.id }}">{{ c.nome }}</option>
+    {% endfor %}
+    <form action="/registrar-solicitacao" method="POST">
+        <!-- Select de Pacientes -->
+        <div class="form-group">
+            <label for="paciente">Paciente:</label>
+            <select name="paciente" id="paciente" required>
+                <option value="">Selecione o paciente...</option>
+                {% for p in pacientes %}
+                    <option value="{{ p.id }}">{{ p.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="hospital">Hospital:</label>
+            <input type="text" name="hospital" id="hospital" placeholder="Ex: Hospital Central" required>
+        </div>
+
+        <div class="form-group">
+            <label for="cidade">Cidade:</label>
+            <input type="text" name="cidade" id="cidade" placeholder="Ex: Natal" required>
+        </div>
+
+        <div class="form-group">
+            <label for="tipo_sanguineo_necessario">Tipo Sanguíneo:</label>
+            <select name="tipo_sanguineo_necessario" id="tipo_sanguineo_necessario" required>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" name="urgente" id="urgente" value="true">
+            <label for="urgente">Esta solicitação é urgente?</label>
+        </div>
+
+        <button type="submit" class="btn-enviar">Registrar Solicitação</button>
+        <a href="/" class="btn-voltar">Cancelar e voltar</a>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+        body { font-family: sans-serif; background: #f4f4f4; padding: 20px; }
+        .form-container { max-width: 500px; margin: auto; background: white; padding: 25px; border-radius: 8px; }
+        .info-box { background: #fff3f3; padding: 10px; border-left: 5px solid #d32f2f; margin-bottom: 20px; }
+        label { display: block; margin: 10px 0 5px; font-weight: bold; }
+        select, input { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-save { background: #2e7d32; color: white; border: none; width: 100%; padding: 12px; cursor: pointer; font-size: 16px; }
+        .btn-save:hover { background: #1b5e20; }
